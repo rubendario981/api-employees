@@ -3,7 +3,7 @@ import { pool } from "../db.js"
 export const getEmployees = async (req, res)=> {
     try {
         const [rows] = await pool.query("SELECT * FROM employee")
-        res.json(rows)
+        rows.length > 0 ? res.json(rows) : res.status(204).send({message: 'There are not employess on Database'})
         
     } catch (error) {
         res.status(500).send({message: "Internal server Error", error})
